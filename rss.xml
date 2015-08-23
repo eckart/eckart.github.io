@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+  <channel>
+    <title>Your New Jekyll Site</title>
+    <link>blog url</link>
+    <description>Blogging about stuffs</description>
+    <pubDate>Mon, 24 Aug 2015 00:00:01 +0200</pubDate>
+    <item>
+      <title>Literate Idris Test</title>
+      <link>blog url/programming/2015/08/24/test.html</link>
+      <description>&lt;p&gt;Just a simple test page to see if I got it right.
+This is actually a literate idris file&lt;/p&gt;
+</description>
+      <pubDate>Mon, 24 Aug 2015 00:00:01 +0200</pubDate>
+      <dc:date>2015-08-24T00:00:01+02:00</dc:date>
+    </item>
+    <dc:date>2015-08-24T00:00:01+02:00</dc:date>
+  </channel>
+</rss>
