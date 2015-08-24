@@ -1,5 +1,5 @@
 name: Dit un dat
-description: Words fail me
+description: 
 meta_description: "Something profound should be here"
 twitter_username: 'eckardo'
 github_username: 'eckart'
@@ -10,7 +10,7 @@ logo: false
 paginate: 15
 baseurl: /
 domain_name: 'http://eckart.github.io'
-email: 
+email:
 #google_analytics: 'UA-XXXXXXXX-X'
 
 exclude: ["*.ibc"]
