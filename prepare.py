@@ -13,8 +13,8 @@ def prepare(fname):
     f = open(fname, 'rw')
     content = f.read()
     f.close()
-    content = re.sub(r"```([a-zA-Z]+)", r'{% highlight \1 linenos %}', content, re.M)
-    content = content.replace("```", "{% endhighlight %}")
+    #content = re.sub(r"```([a-zA-Z]+)", r'{% highlight \1 linenos %}', content, re.M)
+    #content = content.replace("```", "{% endhighlight %}")
     content = re.sub(r"(\n|\r)(>\s)", r'\n', content, 500, re.M)
     content = re.sub(r"(\n|\r)(>\s)", r'\n', content, 500, re.M)
 
