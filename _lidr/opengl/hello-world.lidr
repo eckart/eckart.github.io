@@ -44,11 +44,11 @@ Some time ago I decided to simultaneously learn [Idris](https://github.com/idris
 (a word about vertices + triangles)
 ```idris 
 
-> vertices : Vect 3 (Vect 3 Double)
+> vertices : List Double
 > vertices = [
->     [ -0.8, -0.8,  0.0],
->     [  0.0,  0.8,  0.0],
->     [  0.8, -0.8,  0.0]
+>   -0.8, -0.8,  0.0,
+>    0.0,  0.8,  0.0,
+>    0.8, -0.8,  0.0
 >   ]
 
 ```
@@ -56,11 +56,11 @@ Some time ago I decided to simultaneously learn [Idris](https://github.com/idris
 (about the colors
 ```idris 
 
-> colors : Vect 3 (Vect 3 Double)
+> colors : List Double
 > colors = [
->     (1.0, 0.0, 0.0, 1.0),
->     (0.0, 1.0, 0.0, 1.0),
->    (0.0, 0.0, 1.0, 1.0)
+>    1.0, 0.0, 0.0, 1.0,
+>    0.0, 1.0, 0.0, 1.0,
+>    0.0, 0.0, 1.0, 1.0
 >   ]
 
 ```
@@ -83,13 +83,12 @@ Some time ago I decided to simultaneously learn [Idris](https://github.com/idris
 
 (uploading the positions and colors)
 ```idris
+
 >  (buffer :: colorBuffer :: _) <- glGenBuffers 2
 >  glBindBuffer GL_ARRAY_BUFFER buffer
-
 >  ds <- sizeofDouble
->  let data1 = (flatten vertices)
->  ptr <- doublesToBuffer data1
->  glBufferData GL_ARRAY_BUFFER (ds * (cast $ length data1)) ptr GL_STATIC_DRAW
+>  ptr <- doublesToBuffer vertices
+>  glBufferData GL_ARRAY_BUFFER (ds * (cast $ length vertices)) ptr GL_STATIC_DRAW
 >  free ptr
 
 ```
@@ -107,9 +106,8 @@ and doing the same with colors
 
 >  glBindBuffer GL_ARRAY_BUFFER colorBuffer
 >
->  let data2 = (flatten colors)
->  ptr2 <- doublesToBuffer data2
->  glBufferData GL_ARRAY_BUFFER (ds * (cast $ length data2)) ptr2 GL_STATIC_DRAW
+>  ptr2 <- doublesToBuffer colors
+>  glBufferData GL_ARRAY_BUFFER (ds * (cast $ length colors)) ptr2 GL_STATIC_DRAW
 >  free ptr2
 >
 >  glEnableVertexAttribArray 1
@@ -207,7 +205,7 @@ void main(void)
 ```idris
 
 >  glUseProgram 0
->  pure $ MkShaders vertexShader fragmentShader program
+>  pure $ MkShaders [vertexShader, fragmentShader] program
 
 ```
 
@@ -218,7 +216,6 @@ void main(void)
 > destroyShaders (MkShaders shaders program) = do
 >  glUseProgram 0
 >  traverse (glDetachShader program) shaders
->  traverse (glDeleteShader program) shaders
 >  glDeleteProgram program
 
 ```
@@ -227,7 +224,7 @@ void main(void)
 ```idris
 
 > destroyBuffers : Vao -> IO ()
-> destroyBuffers (MkVao vao buffery) = do
+> destroyBuffers (MkVao vao buffers) = do
 >  glDisableVertexAttribArray 1
 >  glDisableVertexAttribArray 0
 >
@@ -244,14 +241,14 @@ void main(void)
 (the State for looping)
 ```idris
 
-data State = MkState GlfwWindow Vao Shaders
+> data State = MkState GlfwWindow Vao Shaders
 
-```
+```idris
+
 > draw : State -> IO ()
 > draw (MkState win vao (MkShaders _ prog)) = do
 >                   glClearColor 0 0 0 1
 >                   glClear GL_COLOR_BUFFER_BIT
->                   glClear GL_DEPTH_BUFFER_BIT
 >                   glUseProgram prog
 >                   glBindVertexArray (id vao)
 >                   glEnableVertexAttribArray 0
@@ -297,7 +294,7 @@ This is rest of the code. For a detailed description see (other post)
 >   return win
 
 > main : IO ()
-> main = do win <- initDisplay "Hello Idris" 800 600
+> main = do win <- initDisplay "Hello Idris" 640 480
 >           glfwSetInputMode win GLFW_STICKY_KEYS 1
 >           glfwSwapInterval 0
 >           shaders <- createShaders
@@ -319,3 +316,11 @@ This is rest of the code. For a detailed description see (other post)
 >                       then pure ()
 >                       else do
 >                         eventLoop state
+
+
+execute this by 
+
+```bash
+$ idris -p glfw -p gl -p contrib -o hello hello-world.lidr
+$ ./hello
+```
