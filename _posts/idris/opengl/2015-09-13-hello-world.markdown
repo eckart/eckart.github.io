@@ -80,7 +80,7 @@ Fortunately there is such a package and in fact even more than one.
 
 For simplicity and to run in parallel to the many OpenGL tutorials we will use the [GLFW][7] library and the Idris bindings for GLFW which are available here: [https://github.com/eckart/glfw-idris](https://github.com/eckart/glfw-idris). 
 
-We won't go into detail about how to open the display here. If you are interested you can read [this post](programming,/graphics,/idris/2015/09/13/hello-world.html) about it.
+We won't go into detail about how to open the display here. If you are interested you can read [this post](/programming/graphics/idris/2015/08/24/simple-display.html) about it.
 
 ```idris 
 
@@ -473,8 +473,8 @@ $ ./hello
 ```
 
 The rest of the post deals with the main method, the event loop and the display.
-We won't go into details about it here.
-For a detailed description about this part [see here](/programming/graphics/idris/2015/08/25/simple-display.html).
+
+For more details about this part [see here](/programming/graphics/idris/2015/08/24/simple-display.html).
 
 
 ### Appendix A: The rest of the code
