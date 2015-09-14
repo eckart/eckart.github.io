@@ -3,7 +3,6 @@ layout: post
 title:  "Open a Display for OpenGL using Idris"
 date:   2015-08-24 22:00:01
 categories: Programming Graphics Idris
-disqus: true
 ---
 
 This post shows how to open a display with an OpenGL context from
